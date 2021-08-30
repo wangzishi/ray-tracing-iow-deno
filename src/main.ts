@@ -23,9 +23,9 @@ const writeImage = (
 
 const rayColor = (ray: Ray) => {
   const t = (ray.direction.y + 1) * 0.5;
-  return new Vector3(256, 256, 256).scaleInPlace(1 - t).addInPlace(
-    new Vector3(256 * 0.5, 256 * 0.7, 255).scaleInPlace(t),
-  );
+  const start = new Vector3(255, 255, 255);
+  const end = new Vector3(255 * 0.5, 255 * 0.7, 255);
+  return start.lerpTo(end, t);
 };
 
 const aspectRatio = 16 / 9;
@@ -70,3 +70,9 @@ for (let j = imageHeight - 1; j >= 0; --j) {
 // console.log(ray.at(1).tuple);
 // console.log(ray.at(2).tuple);
 writeImage(data, { width: imageWidth, height: imageHeight });
+/*
+(1 - t) * a + t *b;
+a - at + tb
+a + tb - at
+a + ( b - a )t
+*/
